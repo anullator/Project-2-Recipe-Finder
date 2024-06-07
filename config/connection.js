@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
+// Using dotenv to protect postgres credentials
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,

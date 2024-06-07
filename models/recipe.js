@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
+// Basic Recipe Model
 class Recipe extends Model {}
 
 Recipe.init(
@@ -34,6 +35,7 @@ Recipe.init(
   },
   {
     sequelize,
+    timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: 'recipe'

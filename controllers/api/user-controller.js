@@ -4,10 +4,10 @@ const bcrypt = require('bcrypt');
 // User registration controller
 const userReg = async(req, res) => {
   try{
-    const { name, email, password } = req.body;
+    const { username, email, password } = req.body;
 
     // Validate input
-    if(!name || !email || !password) {
+    if(!username || !email || !password) {
       return res.status(400).json({ message: 'Please enter a name, email, and password.'});
     }
 
@@ -22,7 +22,7 @@ const userReg = async(req, res) => {
 
     // Create the new user
     const newUser = {
-      name,
+      username,
       email,
       password: pwHash,
     };
@@ -34,5 +34,11 @@ const userReg = async(req, res) => {
     res.status(400).json({ message: 'An error occurred during user registration', error: err.message });
   }
 };
+
+
+// User login controller
+
+
+// User logout controller
 
 module.exports = { userReg };

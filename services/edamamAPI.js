@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 require('dotenv').config();
 
-const searchRecipesEdamam = async (query) => {
+const searchRecipes = async (query) => {
   const url = `https://api.edamam.com/search?q=${query}&app_id=${process.env.EDAMAM_APP_ID}&app_key=${process.env.EDAMAM_APP_KEY}`;
 
   try {
@@ -18,4 +18,4 @@ const searchRecipesEdamam = async (query) => {
   }
 };
 
-module.exports = { searchRecipesEdamam };
+module.exports = { searchRecipes };

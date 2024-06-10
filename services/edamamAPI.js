@@ -13,7 +13,7 @@ const searchRecipes = async (query) => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error in searchRecipesEdamam:', error);
+    console.error('Error in searchRecipes:', error);
     throw error;
   }
 };

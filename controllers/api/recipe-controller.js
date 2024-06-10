@@ -7,34 +7,43 @@ const search = async (req, res) => {
     const results = await searchRecipes(req.query.q);
     res.json(results);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({
+      message: "An error occurred while searching for recipes",
+      error: err.message,
+    });
   }
 };
 
 // Save a recipe to the user's Recipe List
 const saveRecipe = async (req, res) => {
   try {
-    const newRecipe = await Recipe.create({
+    const addRecipe = await Recipe.create({
       user_id: req.session.user_id,
       recipe_id: req.body.recipe_id,
       recipe_name: req.body.recipe_name,
       // Add other relevant fields
     });
-    res.json(newRecipe);
+    res.json(addRecipe);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({
+      message: "Error, could not add recipe",
+      error: err.message,
+    });
   }
 };
 
 // Fetch saved recipes for a user
 const getUserRecipes = async (req, res) => {
   try {
-    const recipes = await Recipe.findAll({
+    const userRecipes = await Recipe.findAll({
       where: { user_id: req.session.user_id },
     });
-    res.json(recipes);
+    res.json(userRecipes);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({
+      message: "Error, could not display recipes",
+      error: err.message,
+    });
   }
 };
 

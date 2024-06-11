@@ -3,7 +3,7 @@
 // import router and all the routes in the api folder
 const router = require('express').Router();
 const userRoutes = require('./user-routes');
-// const recipeRoutes = require('./recipe-routes'); // Uncomment and use when ready
+const recipeRoutes = require('./recipe-routes');
 
 // call router.use() for each of the imports
 router.use('/user-routes', userRoutes);
@@ -27,7 +27,7 @@ module.exports = router;
 
 // API routes
 router.use('/api/users', userRoutes);
-// router.use('/api/recipes', recipeRoutes); // Uncomment and use when ready
+router.use('/api/recipes', recipeRoutes);
 
 
 

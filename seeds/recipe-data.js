@@ -1,6 +1,5 @@
 // import Models
-const { Recipe, UserRecipe } = require('../models');
-
+const { Recipe } = require('../models');
 
 const recipeData = [
     {
@@ -76,9 +75,7 @@ const recipeData = [
 ];
 
 // define seedUsers function
-const seedRecipeLists = function () {
-    User.bulkCreate(recipeData)
-}
+const seedRecipeLists = () => Recipe.bulkCreate(recipeData);
 
 // export seedUsers function
 module.exports = { seedRecipeLists };

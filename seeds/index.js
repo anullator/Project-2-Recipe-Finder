@@ -3,7 +3,7 @@ const seedUsers = require('./user-data');
 const seedRecipeLists = require('./recipe-data');
 
 const seedAll = async () => {
-  await sequelize.sync({ force: false });
+  await sequelize.sync({ force: true });
 
   await seedUsers();
 

@@ -13,21 +13,4 @@ const sequelize = process.env.DB_URL
   }
 );
 
-// opens connection to database
-// async function connect() {
-//   try {
-//     await sequelize.authenticate();
-//     console.log('Successfully established connection');
-//   } catch {
-//     console.error('Failed to connect to the database:', error);
-//   }
-// }
-
-// closes connection to database
-// function close() {
-//   sequelize.close();
-// }
-
-module.exports = { sequelize };
-
-// , connect, close 
+module.exports = sequelize;

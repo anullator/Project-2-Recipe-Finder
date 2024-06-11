@@ -1,5 +1,5 @@
 const { Recipe } = require('../../models');
-const { searchRecipes } = require('../../services/edamam');
+const { searchRecipes } = require('../../services/edamamAPI');
 
 // Search for recipes using Edamam API
 const search = async (req, res) => {

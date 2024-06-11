@@ -19,9 +19,7 @@ const userData = [
 ];
 
 // define seedUsers function
-const seedUsers = function () {
-    User.bulkCreate(userData)
-}
+const seedUsers = () => User.bulkCreate(userData);
 
 // export seedUsers function
-module.exports = { seedUsers };
+module.exports = seedUsers;

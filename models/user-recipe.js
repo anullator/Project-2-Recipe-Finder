@@ -1,5 +1,5 @@
-const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
+const { Model, DataTypes } = require("sequelize");
 
 // Join Table to manage the many-to-many relationship. One user can add as many recipes
 // as they want, and each recipe can belong to many users.

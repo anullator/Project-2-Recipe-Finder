@@ -5,9 +5,9 @@ const router = require('express').Router();
 const userRoutes = require('./user-routes');
 const recipeRoutes = require('./recipe-routes');
 
-// call router.use() for each of the imports
+// API routes
 router.use('/user-routes', userRoutes);
-router.use('/recipe-routes', recipeRoutes);
+// router.use('/recipe-routes', recipeRoutes);
 
 // Catch-all route for undefined paths
 router.use((req, res) => {
@@ -16,18 +16,3 @@ router.use((req, res) => {
 
 //export the router
 module.exports = router;
-
-
-
-
-
-
-
-
-
-// API routes
-router.use('/api/users', userRoutes);
-router.use('/api/recipes', recipeRoutes);
-
-
-

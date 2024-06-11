@@ -28,6 +28,6 @@ const sequelize = process.env.DB_URL
 //   sequelize.close();
 // }
 
-module.exports = { sequelize };
+module.exports = sequelize;
 
 // , connect, close 

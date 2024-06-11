@@ -18,12 +18,16 @@
         <div>
         <header>
             <h1>HealthFULL</h1>
-            {{nav-bar}}
+            {{!-- {{nav-bar}} --}}
         </header>
         <main>
             {{{body}}}
         </main>
         </div>
+        {{!-- renders logout script only if logged in --}}
+        {{#if logged_in}}
+        <script src="/js/logout.js"></script>
+        {{/if}}
     </body>
 
 </html>

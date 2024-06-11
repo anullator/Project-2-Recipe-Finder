@@ -26,3 +26,4 @@ Recipe.belongsToMany(User, {
   foreignKey: 'recipeId',
   otherKey: 'userId'
 });
+

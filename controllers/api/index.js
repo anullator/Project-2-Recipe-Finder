@@ -6,7 +6,7 @@ const userRoutes = require('./user-routes');
 const recipeRoutes = require('./recipe-routes');
 
 // API routes
-router.use('/user-routes', userRoutes);
+router.use('/users', userRoutes);
 // router.use('/recipe-routes', recipeRoutes);
 
 // Catch-all route for undefined paths

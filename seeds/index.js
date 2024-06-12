@@ -5,9 +5,11 @@ const seedRecipeLists = require('./recipe-data');
 const seedAll = async () => {
   await sequelize.sync({ force: true });
 
-  await seedUsers();
+  const users = await seedUsers();
+console.log(users);
 
-  await seedRecipeLists();
+  const recipes = await seedRecipeLists();
+  console.log(recipes);
 
   process.exit(0);
 };

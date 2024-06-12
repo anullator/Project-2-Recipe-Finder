@@ -31,7 +31,7 @@ const recipeData = [
         protein: 35,
         carbs: 1,
         fats: 4,
-    }
+    },
 ];
 
 // define seedUsers function

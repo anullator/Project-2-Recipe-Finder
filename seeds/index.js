@@ -1,17 +1,18 @@
+// import sequelize and seed functions
 const sequelize = require('../config/connection');
 const seedUsers = require('./user-data');
 const seedRecipeLists = require('./recipe-data');
 
+// define seed database function
 const seedAll = async () => {
   await sequelize.sync({ force: true });
 
-  const users = await seedUsers();
-console.log(users);
+  await seedUsers();
 
-  const recipes = await seedRecipeLists();
-  console.log(recipes);
+  await seedRecipeLists();
 
   process.exit(0);
 };
 
+// seed database
 seedAll();

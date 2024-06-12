@@ -6,10 +6,10 @@ const seedAll = async () => {
   await sequelize.sync({ force: true });
 
   const users = await seedUsers();
-console.log(users);
+// console.log(users);
 
   const recipes = await seedRecipeLists();
-  console.log(recipes);
+  // console.log(recipes);
 
   process.exit(0);
 };

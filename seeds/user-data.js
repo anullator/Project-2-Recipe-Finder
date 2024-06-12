@@ -1,7 +1,6 @@
 // import Models
 const { User } = require("../models");
 
-
 const userData = [
     {
         username: "reyG18", 

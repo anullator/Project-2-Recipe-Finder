@@ -19,9 +19,14 @@ const saveRecipe = async (req, res) => {
   try {
     const addRecipe = await Recipe.create({
       user_id: req.session.user_id,
-      recipe_id: req.body.recipe_id,
+      // recipe_id: req.body.recipe_id,
       recipe_name: req.body.recipe_name,
-      // Add other relevant fields
+      ingredients: req.body.ingredients,
+      calories: req.body.calories,
+      protein: req.body.protein,
+      carbs: req.body.carbs,
+      fats: req.body.fats
+      // Add other relevant fields if necessary
     });
     res.json(addRecipe);
   } catch (err) {

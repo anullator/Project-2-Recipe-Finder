@@ -17,6 +17,7 @@ const search = async (req, res) => {
 // Save a recipe to the user's Recipe List
 const saveRecipe = async (req, res) => {
   try {
+    console.log('Session in saveRecipe:', req.session); // Debugging user_id = null issue
     const addRecipe = await Recipe.create({
       user_id: req.session.user_id,
       // recipe_id: req.body.recipe_id,

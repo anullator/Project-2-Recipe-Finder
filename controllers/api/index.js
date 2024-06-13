@@ -7,7 +7,7 @@ const recipeRoutes = require('./recipe-routes');
 
 // API routes
 router.use('/users', userRoutes);
-// router.use('/recipe-routes', recipeRoutes);
+router.use('/recipes', recipeRoutes);
 
 // Catch-all route for undefined paths
 router.use((req, res) => {

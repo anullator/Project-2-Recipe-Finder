@@ -41,6 +41,11 @@ const saveRecipe = async (req, res) => {
 // Fetch saved recipes for a user
 const getUserRecipes = async (req, res) => {
   try {
+    if(!req.session.user_id) {
+      return res.status(401).json({ 
+        message: "Unauthorized access. Please Login."
+      });
+    }
     const userRecipes = await Recipe.findAll({
       where: { user_id: req.session.user_id },
     });

@@ -17,11 +17,17 @@ const search = async (req, res) => {
 // Save a recipe to the user's Recipe List
 const saveRecipe = async (req, res) => {
   try {
+    console.log('Session in saveRecipe:', req.session); // Debugging user_id = null issue
     const addRecipe = await Recipe.create({
       user_id: req.session.user_id,
-      recipe_id: req.body.recipe_id,
+      // recipe_id: req.body.recipe_id,
       recipe_name: req.body.recipe_name,
-      // Add other relevant fields
+      ingredients: req.body.ingredients,
+      calories: req.body.calories,
+      protein: req.body.protein,
+      carbs: req.body.carbs,
+      fats: req.body.fats
+      // Add other relevant fields if necessary
     });
     res.json(addRecipe);
   } catch (err) {
@@ -35,6 +41,11 @@ const saveRecipe = async (req, res) => {
 // Fetch saved recipes for a user
 const getUserRecipes = async (req, res) => {
   try {
+    if(!req.session.user_id) {
+      return res.status(401).json({ 
+        message: "Unauthorized access. Please Login."
+      });
+    }
     const userRecipes = await Recipe.findAll({
       where: { user_id: req.session.user_id },
     });

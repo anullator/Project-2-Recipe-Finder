@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const { search, saveRecipe, getUserRecipes } = require("./recipe-controller");
+const withAuth = require('../../utils/auth');
 
-router.get('/search', search);
+router.get('/search', withAuth, search);
 
-router.post('/save', saveRecipe);
+router.post('/save', withAuth, saveRecipe);
 
-router.get('/', getUserRecipes);
+router.get('/', withAuth, getUserRecipes);
 
 module.exports = router;

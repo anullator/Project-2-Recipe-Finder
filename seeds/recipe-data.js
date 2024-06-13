@@ -3,7 +3,7 @@ const { Recipe } = require('../models');
 
 const recipeData = [
     {
-        name: 'Sage Salmon',
+        recipe_name: 'Sage Salmon',
         ingredients: [
             '2 tablespoons minced fresh sage',
             '1 teaspoon garlic powder', 
@@ -19,7 +19,7 @@ const recipeData = [
     },
     //second recipe
     {
-        name: 'Grilled Buttermilk Chicken',
+        recipe_name: 'Grilled Buttermilk Chicken',
         ingredients: [
             '1-1/2 cups buttermilk',
             '4 fresh thyme sprigs',

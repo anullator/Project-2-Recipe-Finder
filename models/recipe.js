@@ -6,18 +6,18 @@ class Recipe extends Model {}
 
 Recipe.init(
   {
-    id: {
+    recipe_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
+    recipe_name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     ingredients: {
-      type: DataTypes.TEXT,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
     calories: {
@@ -31,6 +31,13 @@ Recipe.init(
     },
     fats: {
       type: DataTypes.INTEGER,
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'user',
+        key: 'id',
+      },
     },
   },
   {

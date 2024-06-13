@@ -56,7 +56,7 @@ const userLogin = async (req, res) => {
     }
 
     // Verify the posted password with the password stored in the database
-    const validPw = await userData.checkPassword(req.body.password);
+    const validPw = await bcrypt.compare(req.body.password, userData.password);
 
     if (!validPw) {
       res.status(400).json({
@@ -85,11 +85,12 @@ const userLogout = (req, res) => {
   if (req.session.logged_in) {
     // Removed the session variables
     req.session.destroy(() => {
-      res.status(204).end();
+      res.status(200).json({ message: 'Logout successful' });
     });
   } else {
-    res.status(404).end();
+    res.status(404).json({ message: 'No user is logged in' });
   }
 };
+
 
 module.exports = { userReg, userLogin, userLogout };

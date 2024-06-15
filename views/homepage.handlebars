@@ -28,4 +28,18 @@
         <button id="search">Search</button>
     </div>
 
+{{!-- Search results container --}}
+    <div></div>
+
+{{!-- List of Saved Recipes --}}
+    <div>
+        <h2>My Recipes</h2>
+        <!-- For each recipe, the saved-recipes partial is used to render the recipe data -->
+        {{#each UserRecipe as |recipe|}}
+        {{> saved-recipes}}
+        {{/each}}
+    </div>
+
+    <button id="logout">Log Out</button>
+
 </section>

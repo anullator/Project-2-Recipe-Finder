@@ -39,6 +39,7 @@ router.get('/home', withAuth, async (req, res) => {
             attributes: { exclude: ['password'] },
             include: [{ model: Recipe, UserRecipe }],
         });
+        console.log(userDat);
     
         const user = userDat.get({ plain: true });
     

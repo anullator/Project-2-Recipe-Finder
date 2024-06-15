@@ -1,5 +1,45 @@
 <section>
-{{!-- this is nav bar --}}
-    {{!-- {{< nav-bar}} --}}
-    {{!-- {{< search}} --}}
+
+    <!-- search container -->
+    <div>
+        <h2>Search HealthFULL</h2>
+        <label for="keyword">Keyword:</label>
+        <input type="text" id="keyword" name="keyword" >
+
+        <h3>Diet:</h3>
+        <label for="diet">balanced</label>
+        <input type="radio" id="diet" name="diet" >
+
+        <label for="diet">high-fiber</label>
+        <input type="radio" id="keyword" name="title" >
+
+        <label for="diet">high-protein</label>
+        <input type="radio" id="keyword" name="title" >
+
+        <label for="diet">low-carb</label>
+        <input type="radio" id="keyword" name="title" >
+
+        <label for="diet">low-fat</label>
+        <input type="radio" id="keyword" name="title" >
+
+        <label for="diet">low-sodium</label>
+        <input type="radio" id="keyword" name="title" >
+
+        <button id="search">Search</button>
+    </div>
+
+{{!-- Search results container --}}
+    <div></div>
+
+{{!-- List of Saved Recipes --}}
+    <div>
+        <h2>My Recipes</h2>
+        <!-- For each recipe, the saved-recipes partial is used to render the recipe data -->
+        {{#each UserRecipe as |recipe|}}
+        {{> saved-recipes}}
+        {{/each}}
+    </div>
+
+    <button id="logout">Log Out</button>
+
 </section>

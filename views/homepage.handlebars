@@ -3,29 +3,34 @@
     <!-- search container -->
     <div>
         <h2>Search HealthFULL</h2>
-        <label for="keyword">Keyword:</label>
-        <input type="text" id="keyword" name="keyword" >
+        <form action="/" >
+            <label for="keyword">Keyword:</label>
+            <input type="text" id="keyword" name="keyword" >
 
-        <h3>Diet:</h3>
-        <label for="diet">balanced</label>
-        <input type="radio" id="diet" name="diet" >
+            <h3>Diet:</h3>
+            <label for="balanced">balanced</label>
+            <input type="radio" id="balanced" name="diet" >
 
-        <label for="diet">high-fiber</label>
-        <input type="radio" id="diet" name="diet" >
+            <label for="high-fiber">high-fiber</label>
+            <input type="radio" id="high-fiber" name="diet" >
 
-        <label for="diet">high-protein</label>
-        <input type="radio" id="diet" name="diet" >
+            <label for="high-protein">high-protein</label>
+            <input type="radio" id="high-protein" name="diet" >
 
-        <label for="diet">low-carb</label>
-        <input type="radio" id="diet" name="diet" >
+            <label for="low-carb">low-carb</label>
+            <input type="radio" id="low-carb" name="diet" >
 
-        <label for="diet">low-fat</label>
-        <input type="radio" id="diet" name="diet" >
+            <label for="low-fat">low-fat</label>
+            <input type="radio" id="low-fat" name="diet" >
 
-        <label for="diet">low-sodium</label>
-        <input type="radio" id="diet" name="diet" >
+            <label for="low-sodium">low-sodium</label>
+            <input type="radio" id="low-sodium" name="diet" >
 
-        <button id="search">Search</button>
+            {{!-- <input type="submit" value="Search"> --}}
+            <button id="search" type="submit">Search</button>
+
+        </form>
+
     </div>
 
 {{!-- Search results container --}}

@@ -10,17 +10,20 @@
         <meta name="description" content="">
 
         {{!-- ADD LINKS TO STYLESHEETS HERE --}}
+        <link rel="stylesheet" href="/css/output.css">
 
         <title>HealthFULL</title>
     </head>
 
-    <body>
+    <body class="bg-gray-100">
         <div>
-        <header>
-            <h1>HealthFULL</h1>
-            {{!-- {{nav-bar}} --}}
+        <header class="bg-white p-4 shadow-md">
+            <div class="container mx-auto">
+                <h1 class="text-3xl font-bold text-green-500 rounded-lg px-3 py-1">HealthFULL</h1>
+                {{!-- {{nav-bar}} --}}
+            </div>
         </header>
-        <main>
+        <main class="container mx-auto py-8">
             {{{body}}}
         </main>
         </div>

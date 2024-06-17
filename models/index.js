@@ -8,7 +8,7 @@ const UserRecipe = require('./user-recipe');
 User.belongsToMany(Recipe, {
 
     // 'through' specifies the join table for the many-to-many relationship
-    through: 'user_recipe',
+    through: UserRecipe,
 
     // Defines the foreign key in the join table that references the User model
     foreignKey: 'userId',
@@ -19,7 +19,7 @@ User.belongsToMany(Recipe, {
 
 // Defining the many-to-many relationship between Recipe and User
 Recipe.belongsToMany(User, {
-    through: 'user_recipe',
+    through: UserRecipe,
     foreignKey: 'recipeId',
     otherKey: 'userId'
 });

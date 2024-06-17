@@ -1,50 +1,71 @@
-<section>
+<section class="p-8 bg-gray-100 min-h-screen">
 
     <!-- search container -->
-    <div>
-        <h2>Search HealthFULL</h2>
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+        <h2 class="text-2xl font-extrabold text-gray-900 mb-4">Search for a recipe</h2>
         <form action="/" >
-            <label for="keyword">Keyword:</label>
-            <input type="text" id="keyword" name="keyword" >
-
-            <h3>Diet:</h3>
-            <label for="balanced">balanced</label>
-            <input type="radio" id="balanced" name="diet" >
-
-            <label for="high-fiber">high-fiber</label>
-            <input type="radio" id="high-fiber" name="diet" >
-
-            <label for="high-protein">high-protein</label>
-            <input type="radio" id="high-protein" name="diet" >
-
-            <label for="low-carb">low-carb</label>
-            <input type="radio" id="low-carb" name="diet" >
-
-            <label for="low-fat">low-fat</label>
-            <input type="radio" id="low-fat" name="diet" >
-
-            <label for="low-sodium">low-sodium</label>
-            <input type="radio" id="low-sodium" name="diet" >
+            <div class="mb-4">
+                <label for="keyword" class="block text-sm font-medium text-gray-700">Keyword:</label>
+                <input type="text" id="keyword" name="keyword" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Diet:</h3>
+            <div class="space-y-2">
+                <div>
+                    <label for="balanced" class="inline-flex items-center">
+                        <input type="radio" id="balanced" name="diet" class="form-radio">
+                        <span class="ml-2">Balanced</span>
+                    </label>
+                </div>
+                <div>
+                    <label for="high-fiber" class="inline-flex items-center">
+                        <input type="radio" id="high-fiber" name="diet" class="form-radio">
+                        <span class="ml-2">High-Fiber</span>
+                    </label>
+                </div>
+                <div>
+                    <label for="high-protein" class="inline-flex items-center">
+                        <input type="radio" id="high-protein" name="diet" class="form-radio">
+                        <span class="ml-2">High-Protein</span>
+                    </label>
+                </div>
+                <div>
+                    <label for="low-carb" class="inline-flex items-center">
+                        <input type="radio" id="low-carb" name="diet" class="form-radio">
+                        <span class="ml-2">Low-Carb</span>
+                    </label>
+                </div>
+                <div>
+                    <label for="low-fat" class="inline-flex items-center">
+                        <input type="radio" id="low-fat" name="diet" class="form-radio">
+                        <span class="ml-2">Low-Fat</span>
+                    </label>
+                </div>
+                <div>
+                    <label for="low-sodium" class="inline-flex items-center">
+                        <input type="radio" id="low-sodium" name="diet" class="form-radio">
+                        <span class="ml-2">Low-Sodium</span>
+                    </label>
+                </div>
+            </div>
 
             {{!-- <input type="submit" value="Search"> --}}
-            <button id="search" type="submit">Search</button>
-
+            <button id="search" type="submit" class="mt-6 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Search</button>
         </form>
-
     </div>
 
 {{!-- Search results container --}}
     <div></div>
 
 {{!-- List of Saved Recipes --}}
-    <div>
-        <h2>My Recipes</h2>
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-extrabold text-gray-900 mb-4">My Recipes</h2>
         <!-- For each recipe, the saved-recipes partial is used to render the recipe data -->
         {{#each UserRecipe as |recipe|}}
         {{> saved-recipes}}
         {{/each}}
     </div>
 
-    <button id="logout">Log Out</button>
+    <button id="logout" class="mt-6 px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Log Out</button>
 
 </section>

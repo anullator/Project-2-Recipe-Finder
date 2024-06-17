@@ -1,4 +1,4 @@
-const getRecipes = require('./controllers/edamam-routes/edamam-api');
+const edamamAPI = require('../../controllers/edamam-routes/edamam-api');
 
 async function handleSearch (event) {
     event.preventDefault();
@@ -38,7 +38,7 @@ async function handleSearch (event) {
         return;
     }
     
-    // getRecipes(param);
+    edamamAPI.getRecipes(param);
 }
 
 // attach click listener to search button

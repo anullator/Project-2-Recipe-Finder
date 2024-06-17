@@ -1,18 +1,17 @@
 const { Recipe, UserRecipe } = require('../../models');
-const { searchRecipes } = require('../../controllers/edamam-routes/edamam-api');
 
 // Search for recipes using Edamam API
-const search = async (req, res) => {
-  try {
-    const results = await searchRecipes(req.query.q);
-    res.json(results);
-  } catch (err) {
-    res.status(500).json({
-      message: "An error occurred while searching for recipes",
-      error: err.message,
-    });
-  }
-};
+// const search = async (req, res) => {
+//   try {
+//     const results = await searchRecipes(req.query.q);
+//     res.json(results);
+//   } catch (err) {
+//     res.status(500).json({
+//       message: "An error occurred while searching for recipes",
+//       error: err.message,
+//     });
+//   }
+// };
 
 // Save a recipe to the user's Recipe List
 const saveRecipe = async (req, res) => {
@@ -75,4 +74,4 @@ const getUserRecipes = async (req, res) => {
   }
 };
 
-module.exports = { search, saveRecipe, getUserRecipes };
+module.exports = { saveRecipe, getUserRecipes };

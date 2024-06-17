@@ -1,8 +1,7 @@
-const edamamAPI = require('../../controllers/edamam-routes/edamam-api');
 
 async function handleSearch (event) {
     event.preventDefault();
-    let param = '';
+    let params = '';
     let selectedId;
 
     // get keyword input
@@ -22,23 +21,39 @@ async function handleSearch (event) {
 
     // check if keyword input exists
     if (query && !selectedId) {
-        param+= `q=${query}`;
+        params+= `q=${query}`;
     
     // check if keyword and diet both exist
     } else if (query && selectedId) {
-        param+= `q=${query}&diet=${selectedId}`;
+        params+= `q=${query}&diet=${selectedId}`;
 
     // check if only diet exists
     } else if (!query && selectedId) {
-        param+= `diet=${selectedId}`;
+        params+= `diet=${selectedId}`;
 
     // error handling if search attempted w/neither keyword or diet
     } else {
         alert('Must enter keyword or select a diet.');
         return;
     }
-    
-    edamamAPI.getRecipes(param);
+
+// TODO: ====================
+// this should get the search route from the server
+    try {
+        const res = await fetch('/api/recipes/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({params: params}),
+        });
+        const searchResult = res.json();
+        // handle response data
+        console.log(searchResult);
+        
+    } catch (err) {
+        console.error('Error fetching data:', error);
+    }
 }
 
 // attach click listener to search button

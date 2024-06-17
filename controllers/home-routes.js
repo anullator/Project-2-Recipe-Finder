@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const { User, Recipe, UserRecipe } = require('../models');
 const withAuth = require('../utils/auth');
-const recipeContr = require('./api/recipe-controller');
 
 // START ROUTE
 router.get('/', async (req, res) => {

@@ -1,5 +1,5 @@
-const { Recipe } = require('../../models');
-const { searchRecipes } = require('../../services/edamamAPI');
+const { Recipe, UserRecipe } = require('../../models');
+const { searchRecipes } = require('../../controllers/edamam-routes/edamam-api');
 
 // Search for recipes using Edamam API
 const search = async (req, res) => {
@@ -46,11 +46,28 @@ const getUserRecipes = async (req, res) => {
         message: "Unauthorized access. Please Login."
       });
     }
-    const userRecipes = await Recipe.findAll({
-      where: { user_id: req.session.user_id },
+
+    const userRecipes = await UserRecipe.findAll({
+      where: { user_id: req.session.user_id }, // try "userId" instead of user_id" if it doesn't work
+      include: [
+        {
+          model: Recipe, // Include the Recipe model to get recipe details
+          attributes: ['recipe_id', 'recipe_name', 'ingredients', 'calories', 'protein', 'carbs', 'fats'], // include the recipe ID
+        }
+      ]
     });
-    res.json(userRecipes);
+
+    // get recipe data from results
+    const recipes = userRecipes.map(userRecipe => userRecipe.recipe);
+
+    console.log('Fetched recipes:', recipes.map(recipe => recipe.recipe_name));
+    // res.render('homepage', {
+    //   loggedIn: req.session.loggedIn;
+    // });
+
+    // res.json(userRecipes);
   } catch (err) {
+    console.log('Error fetching user recipes:', err);
     res.status(500).json({
       message: "Error, could not display recipes",
       error: err.message,

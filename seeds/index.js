@@ -2,6 +2,7 @@
 const sequelize = require('../config/connection');
 const seedUsers = require('./user-data');
 const seedRecipeLists = require('./recipe-data');
+const seedUserRecipes = require('./user-recipe');
 
 // define seed database function
 const seedAll = async () => {
@@ -10,6 +11,8 @@ const seedAll = async () => {
   await seedUsers();
 
   await seedRecipeLists();
+
+  await seedUserRecipes();
 
   process.exit(0);
 };

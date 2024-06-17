@@ -1,13 +1,15 @@
-<section class="card">
-    <h3>{{this.recipe_name}}</h3>
-    <p>Ingredients:</p>
-    <ul>
+<section class="card bg-white p-6 rounded-lg shadow-lg mb-6">
+    <h3 class="text-xl font-bold text-gray-900 mb-4">{{this.recipe_name}}</h3>
+    <p class="text-sm font-semibold text-gray-800 mb-2">Ingredients:</p>
+    <ul class="list-disc list-inside mb-4">
         {{#each ingredients as |ingredient|}}
-            <li>{{ingredient}}</li>
+            <li class="text-gray-700">{{ingredient}}</li>
         {{/each}}
     </ul>
-    <p>Calories: {{this.calories}}</p>
-    <p>Protein: {{this.protein}}</p>
-    <p>Carbs: {{this.carbs}}</p>
-    <p>Fats: {{this.fats}}</p>
+    <div class="text-sm text-gray-700">
+        <p class="mb-2"><span class="font-semibold">Calories:</span>{{this.calories}}</p>
+        <p class="mb-2"><span class="font-semibold">Protein:</span>{{this.protein}}</p>
+        <p class="mb-2"><span class="font-semibold">Carbs:</span>{{this.carbs}}</p>
+        <p class="mb-2"><span class="font-semibold">Fats:</span>{{this.fats}}</p>
+    </div>
 </section>

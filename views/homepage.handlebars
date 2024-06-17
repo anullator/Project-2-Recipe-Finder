@@ -54,12 +54,10 @@
         </form>
     </div>
 
-{{!-- Search results container --}}
+<!-- Search results container -->
     <div class="bg-white p-6 mb-7 rounded-lg shadow-md" id="results-box">
         <h2 class="text-2xl font-extrabold text-gray-900 mb-4">Search Results</h2>
-        {{#each recipes as |recipe|}}
-        {{>search}}
-        {{/each}}
+        <div id="results-container"></div> <!-- Container for search results -->
     </div>
 
 {{!-- List of Saved Recipes --}}

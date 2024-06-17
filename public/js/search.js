@@ -63,50 +63,60 @@ function displayRecipes (searchResult) {
     const top20 = searchResult.hits;
     // console.log(top20);
 
-    const resultBox = document.getElementById('results-box');
-    resultBox.textContent = '';
+    const resultContainer = document.getElementById('results-container');
+    resultContainer.textContent = '';
 
     top20.forEach(hit => {
         const recipe = hit.recipe;
 
         // recipe card el
         const cardEl = document.createElement('div');
-        cardEl.classList.add('card');
+        cardEl.classList.add('card', 'bg-white', 'p-6', 'rounded-lg', 'shadow-md', 'mb-6');
 
         // recipe name el
         const nameEl = document.createElement('h3');
         nameEl.textContent = recipe.label;
+        nameEl.classList.add('text-2xl', 'font-extrabold', 'text-gray-900', 'mb-2');
 
         //ingredients el
         const ingredientsLabel = document.createElement('p');
         ingredientsLabel.textContent = 'Ingredients:';
+        ingredientsLabel.classList.add('text-xl', 'font-semibold', 'text-gray-800', 'mb-2');
+
         const ingredientsListEl = document.createElement('ul');
+        ingredientsListEl.classList.add('list-disc', 'list-inside', 'mb-4');
 
         recipe.ingredientLines.forEach(ingredient => {
             const ingredientEl = document.createElement('li');
             ingredientEl.textContent = ingredient;
+            ingredientEl.classList.add('text-gray-700');
             ingredientsListEl.appendChild(ingredientEl);
         })
 
         // calories el
         const calEl = document.createElement('p');
         calEl.textContent = `Calories: ${recipe.calories}`;
+        calEl.classList.add('text-gray-700', 'mb-2');
 
         // protein el
         const proteinEl = document.createElement('p');
         proteinEl.textContent = `${recipe.digest[2].label}: ${recipe.digest[2].total}`;
+        proteinEl.classList.add('text-gray-700', 'mb-2');
 
         // carbs el
         const carbsEl = document.createElement('p');
         carbsEl.textContent = `${recipe.digest[1].label}: ${recipe.digest[1].total}`;
+        carbsEl.classList.add('text-gray-700', 'mb-2');
 
         // fats el
         const fatsEl = document.createElement('p');
         fatsEl.textContent = `${recipe.digest[0].label}: ${recipe.digest[0].total}`;
+        fatsEl.classList.add('text-gray-700', 'mb-2');
 
         // save recipe btn
         const saveRecipeBtn = document.createElement('button');
         saveRecipeBtn.textContent = 'Save Recipe';
+        saveRecipeBtn.classList.add('mt-4', 'px-4', 'py-2', 'bg-indigo-600', 'text-white', 'text-sm', 'font-medium', 'rounded-md', 'shadow-sm', 'hover:bg-indigo-700', 'focus:outline-none', 'focus:ring-2', 'focus:ring-offset-2', 'focus:ring-indigo-500');
 
         // add components to card
         cardEl.appendChild(nameEl);
@@ -119,7 +129,7 @@ function displayRecipes (searchResult) {
         cardEl.appendChild(saveRecipeBtn);
 
         // add card to container
-        resultBox.appendChild(cardEl);
+        resultContainer.appendChild(cardEl);
     })
 }
 

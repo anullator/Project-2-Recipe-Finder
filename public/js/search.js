@@ -1,8 +1,7 @@
-const edamamAPI = require('../../controllers/edamam-routes/edamam-api');
 
 async function handleSearch (event) {
     event.preventDefault();
-    let param = '';
+    let params = '';
     let selectedId;
 
     // get keyword input
@@ -22,23 +21,106 @@ async function handleSearch (event) {
 
     // check if keyword input exists
     if (query && !selectedId) {
-        param+= `q=${query}`;
+        params+= `q=${query}`;
     
     // check if keyword and diet both exist
     } else if (query && selectedId) {
-        param+= `q=${query}&diet=${selectedId}`;
+        params+= `q=${query}&diet=${selectedId}`;
 
     // check if only diet exists
     } else if (!query && selectedId) {
-        param+= `diet=${selectedId}`;
+        params+= `diet=${selectedId}`;
 
     // error handling if search attempted w/neither keyword or diet
     } else {
         alert('Must enter keyword or select a diet.');
         return;
     }
-    
-    edamamAPI.getRecipes(param);
+
+// TODO: ====================
+// this should get the search route from the server
+    try {
+        const res = await fetch('/api/recipes/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({params: params}),
+        });
+
+        const searchResult = await res.json();
+
+        // handle response data
+        displayRecipes(searchResult);
+        
+    } catch (err) {
+        console.error('Error fetching data:', err);
+    }
+}
+
+function displayRecipes (searchResult) {
+
+    const top20 = searchResult.hits;
+    // console.log(top20);
+
+    const resultBox = document.getElementById('results-box');
+    resultBox.textContent = '';
+
+    top20.forEach(hit => {
+        const recipe = hit.recipe;
+
+        // recipe card el
+        const cardEl = document.createElement('div');
+        cardEl.classList.add('card');
+
+        // recipe name el
+        const nameEl = document.createElement('h3');
+        nameEl.textContent = recipe.label;
+
+        //ingredients el
+        const ingredientsLabel = document.createElement('p');
+        ingredientsLabel.textContent = 'Ingredients:';
+        const ingredientsListEl = document.createElement('ul');
+
+        recipe.ingredientLines.forEach(ingredient => {
+            const ingredientEl = document.createElement('li');
+            ingredientEl.textContent = ingredient;
+            ingredientsListEl.appendChild(ingredientEl);
+        })
+
+        // calories el
+        const calEl = document.createElement('p');
+        calEl.textContent = `Calories: ${recipe.calories}`;
+
+        // protein el
+        const proteinEl = document.createElement('p');
+        proteinEl.textContent = `${recipe.digest[2].label}: ${recipe.digest[2].total}`;
+
+        // carbs el
+        const carbsEl = document.createElement('p');
+        carbsEl.textContent = `${recipe.digest[1].label}: ${recipe.digest[1].total}`;
+
+        // fats el
+        const fatsEl = document.createElement('p');
+        fatsEl.textContent = `${recipe.digest[0].label}: ${recipe.digest[0].total}`;
+
+        // save recipe btn
+        const saveRecipeBtn = document.createElement('button');
+        saveRecipeBtn.textContent = 'Save Recipe';
+
+        // add components to card
+        cardEl.appendChild(nameEl);
+        cardEl.appendChild(ingredientsLabel);
+        cardEl.appendChild(ingredientsListEl);
+        cardEl.appendChild(calEl);
+        cardEl.appendChild(proteinEl);
+        cardEl.appendChild(carbsEl);
+        cardEl.appendChild(fatsEl);
+        cardEl.appendChild(saveRecipeBtn);
+
+        // add card to container
+        resultBox.appendChild(cardEl);
+    })
 }
 
 // attach click listener to search button

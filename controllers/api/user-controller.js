@@ -92,5 +92,16 @@ const userLogout = (req, res) => {
   }
 };
 
+const getUserID = async (req, res) => {
+  try {
+    const userID = req.session.user_id;
+    res.json(userID);
+  } catch (err) {
+    res.status(500).json({
+      message: "An error occurred during login",
+      error: err.message,
+    });
+  }
+}
 
-module.exports = { userReg, userLogin, userLogout };
+module.exports = { userReg, userLogin, userLogout, getUserID };

@@ -3,7 +3,6 @@ async function handleSearch (event) {
     event.preventDefault();
     let params = '';
     let selectedId;
-    let searchResult;
 
     // get keyword input
     const rawQuery = document.getElementById("keyword").value.trim();
@@ -48,36 +47,65 @@ async function handleSearch (event) {
             body: JSON.stringify({params: params}),
         });
 
-        searchResult = await res.json();
-        
+        const searchResult = await res.json();
+        const top20 = searchResult.hits;
+
+        // get the desired info from the top 20 recipes
+        let recipesArr = [];
+        top20.forEach(hit => {
+            const recipe = hit.recipe;
+            
+            // object containing individual recipe data
+            const recipeObj = {
+                recipe_name: recipe.label,
+                ingredients: recipe.ingredientLines,
+                calories: Math.round(recipe.calories),
+                protein: Math.round(recipe.digest[2].total),
+                carbs: Math.round(recipe.digest[1].total),
+                fats: Math.round(recipe.digest[0].total),
+            }
+            // add each recipe object to the recipe array
+            recipesArr.push(recipeObj)
+        });
+
+        // handle response data
+        storeRecipes(recipesArr);
+        displayRecipes(recipesArr);
     } catch (err) {
         console.error('Error fetching data:', err);
     }
-
-    // handle response data
-    displayRecipes(searchResult);
 }
 
-function displayRecipes (searchResult) {
+function storeRecipes(allRecipes) {
+    // clear stored recipes
+    if (localStorage.getItem('storedRecipes')) {
+        localStorage.removeItem('storedRecipes');
+    }
 
-    const top20 = searchResult.hits;
+    // Store recipe results in local storage
+    localStorage.setItem('storedRecipes', JSON.stringify(allRecipes));
+}
+
+function displayRecipes (allRecipes) {
 
     const resultContainer = document.getElementById('results-container');
     resultContainer.textContent = '';
+    // counter for recipe id
+    let i = 0;
 
-    top20.forEach(hit => {
-        const recipe = hit.recipe;
-
+    allRecipes.forEach(recipe => {
         // recipe card el
         const cardEl = document.createElement('div');
         cardEl.classList.add('card', 'bg-white', 'p-6', 'rounded-lg', 'shadow-md', 'mb-6');
+        cardEl.setAttribute('id', i);
+        i++;
 
         // recipe name el
         const nameEl = document.createElement('h3');
-        nameEl.textContent = recipe.label;
+        nameEl.textContent = recipe.recipe_name;
         nameEl.classList.add('text-2xl', 'font-extrabold', 'text-gray-900', 'mb-2');
 
-        //ingredients el
+        //ingredients list el
         const ingredientsLabel = document.createElement('h4');
         ingredientsLabel.textContent = 'Ingredients:';
         ingredientsLabel.classList.add('text-xl', 'font-semibold', 'text-gray-800', 'mb-2');
@@ -85,7 +113,7 @@ function displayRecipes (searchResult) {
         const ingredientsListEl = document.createElement('ul');
         ingredientsListEl.classList.add('list-disc', 'list-inside', 'mb-4');
 
-        recipe.ingredientLines.forEach(ingredient => {
+        recipe.ingredients.forEach(ingredient => {
             const ingredientEl = document.createElement('li');
             ingredientEl.textContent = ingredient;
             ingredientEl.classList.add('text-gray-700');
@@ -94,22 +122,22 @@ function displayRecipes (searchResult) {
 
         // calories el
         const calEl = document.createElement('p');
-        calEl.textContent = `Calories: ${Math.round(recipe.calories)}`;
+        calEl.textContent = `Calories: ${recipe.calories}`;
         calEl.classList.add('text-gray-700', 'mb-2');
 
         // protein el
         const proteinEl = document.createElement('p');
-        proteinEl.textContent = `${recipe.digest[2].label}: ${Math.round(recipe.digest[2].total)}`;
+        proteinEl.textContent = `Protein: ${recipe.protein}`;
         proteinEl.classList.add('text-gray-700', 'mb-2');
 
         // carbs el
         const carbsEl = document.createElement('p');
-        carbsEl.textContent = `${recipe.digest[1].label}: ${Math.round(recipe.digest[1].total)}`;
+        carbsEl.textContent = `Carbs: ${recipe.carbs}`;
         carbsEl.classList.add('text-gray-700', 'mb-2');
 
         // fats el
         const fatsEl = document.createElement('p');
-        fatsEl.textContent = `${recipe.digest[0].label}: ${Math.round(recipe.digest[0].total)}`;
+        fatsEl.textContent = `Fats: ${recipe.fats}`;
         fatsEl.classList.add('text-gray-700', 'mb-2');
 
         // save recipe btn
@@ -139,60 +167,43 @@ async function handleSaveRecipe (event) {
     event.preventDefault();
     const clickedEl = event.target;
 
-    const savedRecipe = clickedEl.parentNode;
-    console.log(savedRecipe); // works as expected
+    // get recipe to save from local storage
+    const recipeID = clickedEl.parentNode.id;
+    const recipeResults = JSON.parse(localStorage.getItem('storedRecipes'));
+    let savedRecipe = recipeResults[recipeID];
 
-    const recipe_name = savedRecipe.querySelector('h3').textContent;
-    // console.log(recipe_name);
-    const ingredientList = savedRecipe.querySelectorAll('li');
-    const ingredients = Array.from(ingredientList).map(li => li.textContent);
-    //console.log(ingredients);
+    // send request to get user id
+    try {
+        // get user id
+        const res = await fetch('/api/users/id');
+        const id = await res.json();
 
-    const macrosList = savedRecipe.querySelectorAll('p');
-    macrosList.unshift();
-    let text;
-
-    console.log(macrosList);
-
-    // const macros = Array.from(macrosList.map(p => {
-    //     text =  p.textContent;
-    //     const arrText = text.split(' ');
-    //     text = arrText[1];
-    //     return text;
-    // }));
-
-    // console.log(macros);
-
-
-
-
-    // const calories = ;
-
-
-    // try {
-    //     const res = await fetch('/api/recipes/save', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             recipe_name: recipe_name;
-    //             ingredients:
-    //             calories:
-    //             protein:
-    //             carbs:
-    //             fats:
-
-    //         }),
-    //     });
-
-    //     savedResponse = await res.json();
-    //     console.log(savedResponse);
+        // add id to recipe obj
+        savedRecipe = {
+            ...savedRecipe,
+            user_id: id
+        }
         
-    // } catch (err) {
-    //     console.error('Error fetching data:', err);
-    // }
+    } catch (err) {
+        console.error('Error fetching data:', err);
+    }
+
+    // send request to save recipe
+    try {
+        const res = await fetch('/api/recipes/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(savedRecipe),
+        });
+
+        savedResponse = await res.json();
+        console.log(savedResponse);
+    } catch (err) {
+        console.error('Error fetching data:', err);
+    }
 }
 
 // attach click listener to search button
-document.querySelector('#search').addEventListener('click', handleSearch);
+document.querySelector('#search').addEventListener('click', handleSearch)

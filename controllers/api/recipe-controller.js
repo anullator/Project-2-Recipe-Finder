@@ -1,18 +1,5 @@
 const { Recipe, UserRecipe } = require('../../models');
 
-// Search for recipes using Edamam API
-// const search = async (req, res) => {
-//   try {
-//     const results = await searchRecipes(req.query.q);
-//     res.json(results);
-//   } catch (err) {
-//     res.status(500).json({
-//       message: "An error occurred while searching for recipes",
-//       error: err.message,
-//     });
-//   }
-// };
-
 // Save a recipe to the user's Recipe List
 const saveRecipe = async (req, res) => {
   try {
@@ -47,11 +34,11 @@ const getUserRecipes = async (req, res) => {
     }
 
     const userRecipes = await UserRecipe.findAll({
-      where: { user_id: req.session.user_id }, // try "userId" instead of user_id" if it doesn't work
+      where: { user_id: req.session.user_id },
       include: [
         {
           model: Recipe, // Include the Recipe model to get recipe details
-          attributes: ['recipe_id', 'recipe_name', 'ingredients', 'calories', 'protein', 'carbs', 'fats'], // include the recipe ID
+          attributes: ['recipe_id', 'recipe_name', 'ingredients', 'calories', 'protein', 'carbs', 'fats'],
         }
       ]
     });
@@ -60,9 +47,6 @@ const getUserRecipes = async (req, res) => {
     const recipes = userRecipes.map(userRecipe => userRecipe.recipe);
 
     console.log('Fetched recipes:', recipes.map(recipe => recipe.recipe_name));
-    // res.render('homepage', {
-    //   loggedIn: req.session.loggedIn;
-    // });
 
     // res.json(userRecipes);
   } catch (err) {

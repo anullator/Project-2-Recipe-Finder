@@ -78,7 +78,7 @@ function displayRecipes (searchResult) {
         nameEl.classList.add('text-2xl', 'font-extrabold', 'text-gray-900', 'mb-2');
 
         //ingredients el
-        const ingredientsLabel = document.createElement('p');
+        const ingredientsLabel = document.createElement('h4');
         ingredientsLabel.textContent = 'Ingredients:';
         ingredientsLabel.classList.add('text-xl', 'font-semibold', 'text-gray-800', 'mb-2');
 
@@ -94,22 +94,22 @@ function displayRecipes (searchResult) {
 
         // calories el
         const calEl = document.createElement('p');
-        calEl.textContent = `Calories: ${recipe.calories}`;
+        calEl.textContent = `Calories: ${Math.round(recipe.calories)}`;
         calEl.classList.add('text-gray-700', 'mb-2');
 
         // protein el
         const proteinEl = document.createElement('p');
-        proteinEl.textContent = `${recipe.digest[2].label}: ${recipe.digest[2].total}`;
+        proteinEl.textContent = `${recipe.digest[2].label}: ${Math.round(recipe.digest[2].total)}`;
         proteinEl.classList.add('text-gray-700', 'mb-2');
 
         // carbs el
         const carbsEl = document.createElement('p');
-        carbsEl.textContent = `${recipe.digest[1].label}: ${recipe.digest[1].total}`;
+        carbsEl.textContent = `${recipe.digest[1].label}: ${Math.round(recipe.digest[1].total)}`;
         carbsEl.classList.add('text-gray-700', 'mb-2');
 
         // fats el
         const fatsEl = document.createElement('p');
-        fatsEl.textContent = `${recipe.digest[0].label}: ${recipe.digest[0].total}`;
+        fatsEl.textContent = `${recipe.digest[0].label}: ${Math.round(recipe.digest[0].total)}`;
         fatsEl.classList.add('text-gray-700', 'mb-2');
 
         // save recipe btn

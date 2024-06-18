@@ -12,7 +12,7 @@ const saveRecipe = async (req, res) => {
       calories: req.body.calories,
       protein: req.body.protein,
       carbs: req.body.carbs,
-      fats: req.body.fats
+      fats: req.body.fats,
       // Add other relevant fields if necessary
     });
     res.json(addRecipe);
